@@ -2,12 +2,94 @@
   <div class="map">
     <div class="map_features">
         <div id="search" class="search">
-        <button id="search_button" class="button" @click="find">Найти!</button>
-        <input class="input_base" type="search" v-model = "place" placeholder="Выберите место">
+          <button id="search_button" class="button" @click="find">Найти!</button>
+          <input class="input_base" type="search" v-model = "place" placeholder="Выберите место">
         </div>
     </div>
     <div id ="info" class="info_base"></div>
-    <div id = "map"></div>
+        <div id="calc" class="calc">
+            <h3 class="calc_text">Калькулятор ипотеки</h3>
+            <form>
+              <div>
+                <label class="calc_text">Первоначальный взнос: </label>
+                <input class="input" type="number" id="first payment" min="1" v-model="first_pay">
+              </div>
+              <div>
+                <label class="calc_text">Сколько лет: </label>
+                <input class="input" type="number" id="year" min="1" max="30" v-model="years_to_pay">
+              </div>
+
+              <!--Кнопочки для банков -->
+              <div>
+                <p class="calc_text">ВТБ банк:</p>
+                <div>
+                  <input type="radio" class="radio" id="Choice1"
+                  name="type" value="5.7" v-model="picked">
+                  <label for="Choice1" class="calc_text"> Для семей с детьми </label>
+
+                  <input type="radio" class="radio" id="Choice2"
+                  name="type" value="6.7" v-model="picked">
+                  <label for="Choice2" class="calc_text"> С госсподержкой </label>
+
+                  <input type="radio" class="radio" id="Choice3"
+                  name="type" value="4.7" v-model="picked">
+                  <label for="Choice3" class="calc_text"> Для IT-специалистов </label>
+
+                  <input type="radio" class="radio" id="Choice4"
+                  name="type" value="11.5" v-model="picked" checked>
+                  <label for="Choice4" class="calc_text"> Обычная ставка </label><br>
+                </div>
+                <p class="calc_text">Альфа банк:</p>
+                <div>
+                  <input type="radio"  class="radio" id="Choice1_"
+                  name="type" value="5.8" v-model="picked">
+                  <label for="Choice1" class="calc_text"> Для семей с детьми </label>
+
+                  <input type="radio" class="radio" id="Choice2_"
+                  name="type" value="10.7" v-model="picked">
+                  <label for="Choice2" class="calc_text"> 'Под залог' </label>
+
+                  <input type="radio" class="radio" id="Choice3_"
+                  name="type" value="11.8" v-model="picked">
+                  <label for="Choice3" class="calc_text"> Обычная ставка </label>
+                </div>
+                <p class="calc_text">Сбер Домклик:</p>
+                <div>
+                   <input type="radio"  class="radio" id="Choice1_3"
+                   name="type" value="5.9" v-model="picked">
+                   <label for="Choice1_3" class="calc_text"> Для семей с детьми </label>
+
+                   <input type="radio" class="radio" id="Choice2_3"
+                   name="type" value="7.7" v-model="picked">
+                   <label for="Choice2_3" class="calc_text"> С господдержкой </label>
+
+                   <input type="radio" class="radio" id="Choice3_3"
+                   name="type" value="4.75" v-model="picked">
+                   <label for="Choice3" class="calc_text"> Для IT-специалистов </label>
+
+                   <input type="radio" class="radio" id="Choice4_3"
+                   name="type" value="12" v-model="picked">
+                   <label for="Choice4_3" class="calc_text"> Для иностранцев </label>
+
+                   <input type="radio" class="radio" id="Choice5_3"
+                   name="type" value="11.4" v-model="picked">
+                   <label for="Choice5_3" class="calc_text"> Обычная ставка </label>
+                </div>
+                <div>
+                <h3 class="prct">Ставка: {{ picked }}  Ежемесячный платеж: {{ Math.round(((price-first_pay)*(picked/1200)*(1+picked/1200)**(12*years_to_pay))/((1+picked/1200)**(12*years_to_pay)-1)) }} </h3>
+                </div>
+          <!-- кнопка всплывающего окошка-->
+    <!--            <button id="myBtn">Open Modal</button>-->
+<!--              <div id="myModal" class="modal">-->
+    <!--                <div class="modal-content">-->
+                     <!-- <span class="close">&times;</span>
+                      <p>Some text in the Modal..</p>-1000000 - first_pay}}) / {{12*years_to_pay}}) + {{picked*0.01*(1000000 - first_pay) -->
+    <!--                </div>-->
+    <!--              </div>-->
+              </div>
+            </form>
+          </div>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -35,6 +117,13 @@
 .button:hover {
   cursor: pointer;
 }
+.prct {
+  color: black;
+  list-style-type: none;
+  font-weight: 400;
+  font-size: large;
+  font-variant: small-caps slashed-zero;
+}
 
 .input_base {
   width: 350px;
@@ -55,45 +144,11 @@
 }
 
 .button {
- /* width: 50px;
-  height: 30px;
-  border-radius: 5px;
-  border:  none;
-  background: darkseagreen;
-  color: white;
-  padding: 5px 5px; */
     text-align: center;
     display: inline-block;
     box-sizing: border-box;
     padding: 5 15px;
     margin: 0 10px 10px 0;
-    outline: none;
-    border: 1px solid #fff;
-    border-radius: 50px;
-    height: 46px;
-    line-height: 46px;
-    font-size: 14px;
-    font-weight: 600;
-    font-variant: small-caps slashed-zero;
-    text-decoration: none;
-    color: #444;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
-    cursor: pointer;
-    user-select: none;
-    appearance: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    transition: box-shadow 0.2s;
-
-}
-
-.button_mort {
-    text-align: center;
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 0 25px;
-    margin: 0 15px 15px 0;
     outline: none;
     border: 1px solid #fff;
     border-radius: 50px;
@@ -126,13 +181,11 @@ img.huechange { filter: hue-rotate(120deg); }
 img.huechange2 { background-color: red; }
 
 .info_base {
-  width: 43rem;
+  width: 45rem;
   height: 35rem;
   border-radius: 1rem;
   margin-top: 3rem;
   margin-left: 3rem;
-  /*background-color: #ffd670;*/
-  z-index: 2;
   position: absolute;
   display: none;
 }
@@ -150,11 +203,11 @@ img.huechange2 { background-color: red; }
 .card {
     background-color: snow;
     display: block;
-    height: 18rem;
     z-index: 2;
     /*padding: 5rem 5rem;*/
     border-radius: 10px;
     padding: 15px 15px;
+    height: 22rem;
 }
 
 .image {
@@ -207,32 +260,52 @@ img.huechange2 { background-color: red; }
   list-style-type: none;
   font-size: medium;
   font-variant: small-caps slashed-zero;
-}.type_1 {
-  list-style-type: none;
-  font-size: large;
-  font-variant: small-caps slashed-zero;
-  text-align: center;
-  top: -30px;
 }
 
+
+.button_mort {
+    text-align: center;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 25px;
+    margin: 0 15px 15px 0;
+    outline: none;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 14px;
+    font-weight: 600;
+    font-variant: small-caps slashed-zero;
+    text-decoration: none;
+    color: #444;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    transition: box-shadow 0.2s;
+}
+
+
 .calc {
-  /*font-family: Times New Roman;   op: -16rem;.*/
-  width: 41rem;
-  height: 25rem;
-  display: grid;
+
+  margin-top: 25rem;
+  position: absolute;
+  margin-left: 3rem;
+  display: none;
+  height: 45vh;
+  width: 40vw;
+  z-index: 3;
+
   background-color: snow;
-  /*padding: 5rem 5rem;*/
   border-radius: 10px;
   padding: 15px 15px;
   color: #181818;
 }
 
-.calc_features {
-    position: absolute;
-    width: 40vw;
-    height: 60vh;
-    background-color: transparent;
-}
 
 /*/*/
 
@@ -312,27 +385,6 @@ img.huechange2 { background-color: red; }
     transition: 0.2s ease-in;
 }
 
-.prct {
-  top: -3.25rem;
-  left: 13rem;
-  color: black;
-  list-style-type: none;
-  font-weight: 400;
-  font-size: large;
-  font-variant: small-caps slashed-zero;
-
-}
-
-.payment {
-  top: -5rem;
-  left: 21rem;
-  color: black;
-  list-style-type: none;
-  font-weight: 400;
-  font-size: large;
-  font-variant: small-caps slashed-zero;
-}
-
 </style>
 
 <script>
@@ -343,13 +395,42 @@ export default {
   components: {},
   data() {
     return {
-      place: ''
+      place: '',
+      picked: '',
+      years_to_pay: 0,
+      first_pay: 0,
+      price: 0
     }
   },
   methods: {
-    find() {
-      console.log("here");
-    }
+    Answer: function (message, picked) {
+      if (picked == "Choice1") {
+        var p = 5.7;
+      }
+      if (picked == "Choice2") {
+        var p = 6.7;
+      }
+      if (picked == "Choice3") {
+        var p = 4.7;
+      }
+      if (picked == "Choice4") {
+        var p = 11.5;
+      }
+      if (picked == "Choice1_") {
+        var p = 5.8;
+      }
+      if (picked == "Choice2_") {
+        var p = 10.7;
+      }
+      if (picked == "Choice3_") {
+        var p = 11.8;
+      }
+      var r  = 10000; /* цена квартиры */
+      var s = message[0]; /* первоначальный взнос */
+      var m = message[1]; /* количесво лет */
+      var x = ((r - s) / 12*m) + p*0.01*(r - s)
+      return x
+    },
   },
   setup() {
     let map;
@@ -32556,7 +32637,7 @@ export default {
           `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW50eWF0cyIsImEiOiJjbGJ0aXBrZjExN2owM3dzM2d0bHJ1NWdrIn0.tU-T3OQH31H4s4dE_BL5lQ`,
           {
             maxZoom: 18,
-            id: "mapbox/streets-v11", 
+            id: "mapbox/streets-v11",
             tileSize: 512,
             zoomOffset: -1,
             accessToken: "pk.eyJ1IjoiYW50eWF0cyIsImEiOiJjbGJ0aXBrZjExN2owM3dzM2d0bHJ1NWdrIn0.tU-T3OQH31H4s4dE_BL5lQ",
@@ -32565,6 +32646,7 @@ export default {
         .addTo(map);
         let info = document.getElementById('info');
         let button = document.getElementById('search_button');
+        let calc = document.getElementById('calc');
         button.addEventListener('click', () => {
           console.log(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.place}.json?limit=1&proximity=ip&types=place&access_token=pk.eyJ1IjoiYW50eWF0cyIsImEiOiJjbGJ0aW43ZHUwOWtoM25xbzh6cnZ6d2lrIn0._vg7wcEe1zayN9TYjJ31Qg`);
           axios
@@ -32573,14 +32655,16 @@ export default {
             console.log(response);
             info.style.display = "none";
             info.innerHTML = "";
+            calc.style.display = "none";
             map.setView([response.data.features[0].center[1], response.data.features[0].center[0]], 12);
           });
         })
-        let search = document.getElementById('search'); 
+        let search = document.getElementById('search');
         document.getElementById('map').addEventListener('mousedown', () => {
           info.style.display = "none";
           search.style.margin = "auto";
           search.style.marginTop = "1.5rem";
+          calc.style.display = "none";
           let markers = document.getElementsByClassName('huechange');
           for (let item of markers) {
             item.classList.remove("huechange");
@@ -32590,117 +32674,30 @@ export default {
         // // Fly to a random location
         // map.setView([55.751244, 37.618423], 12);
         // });
+        let self = this;
         this.flats.forEach(function(flat) {
           let marker = leaflet.marker([flat.coords[0], flat.coords[1]]).addTo(map);
           let counter = 0;
           marker.addEventListener("click", () => {
+            self.price = flat.price;
+            console.log(self.price);
             counter++;
             let content = "";
             if (counter == 1) {
-              content = `<div class="card">
-      <div class="image exmp3">
-        <img src="${flat.photos}">
-      </div>
-      <div class="info"> <ul>
-        <li class="cost"><b>${flat.price} руб. </b></li>
-        <li class="type"><b>Метро: ${flat.available_metro_station[0]}</b></li>
-        <li class="type"><b>Адрес: ${flat.address} </b></li>
-        <li class="type">${flat.total_information}</li>
-      </ul>
-      </div>
-
-    <div class="calc_features">
-        <div class="calc">
-            <h3 class="calc_text">Калькулятор ипотеки</h3>
-            <form>
-              <div>
-                <label class="calc_text">Первоначальный взнос: </label>
-                <input class="input" type="number" id="first payment" min="1">
-              </div>
-              <div>
-                <label class="calc_text">Сколько лет: </label>
-                <input class="input" type="number" id="year" min="1" max="30">
-              </div>
-
-              <!--Кнопочки для банков -->
-              <div>
-                <p class="calc_text">ВТБ банк:</p>
-                <div>
-                  <input type="radio" class="radio" id="Choice1"
-                  name="type" value="5.7">
-                  <label for="Choice1" class="calc_text"> Для семей с детьми </label>
-
-                  <input type="radio" class="radio" id="Choice2"
-                  name="type" value="6.7">
-                  <label for="Choice2" class="calc_text"> С госсподержкой </label>
-
-                  <input type="radio" class="radio" id="Choice3"
-                  name="type" value="4.7">
-                  <label for="Choice3" class="calc_text"> Для IT-специалистов </label>
-
-                  <input type="radio" class="radio" id="Choice4"
-                  name="type" value="11.5">
-                  <label for="Choice4" class="calc_text"> Обычная ставка </label><br>
-                </div>
-                <p class="calc_text">Альфа банк:</p>
-                <div>
-                  <input type="radio"  class="radio" id="Choice1_"
-                  name="type" value="5.8">
-                  <label for="Choice1" class="calc_text"> Для семей с детьми </label>
-
-                  <input type="radio" class="radio" id="Choice2_"
-                  name="type" value="10.7">
-                  <label for="Choice2" class="calc_text"> 'Под залог' </label>
-
-                  <input type="radio" class="radio" id="Choice3_"
-                  name="type" value="11.8">
-                  <label for="Choice3" class="calc_text"> Обычная ставка </label>
-                </div>
-                <p class="calc_text">Сбер Домклик:</p>
-                <div>
-                   <input type="radio"  class="radio" id="Choice1_3"
-                   name="type" value="5.7">
-                   <label for="Choice1_3" class="calc_text"> Для семей с детьми </label>
-
-                   <input type="radio" class="radio" id="Choice2_3"
-                   name="type" value="7.7">
-                   <label for="Choice2_3" class="calc_text"> С господдержкой </label>
-
-                   <input type="radio" class="radio" id="Choice3_3"
-                   name="type" value="4.7">
-                   <label for="Choice3" class="calc_text"> Для IT-специалистов </label>
-
-                   <input type="radio" class="radio" id="Choice4_3"
-                   name="type" value="12">
-                   <label for="Choice4_3" class="calc_text"> Для иностранцев </label>
-
-                   <input type="radio" class="radio" id="Choice5_3"
-                   name="type" value="11.4">
-                   <label for="Choice5_3" class="calc_text"> Обычная ставка </label>
-                </div>
-                <div>
-                <button id="mortgage_button" class="button_mort">Рассчитать ипотеку!</button>
-                <h3 class="prct">Ставка:          Ежемесячный платеж: </h3>
-
-
-                </div>
-
-
-
-          <!-- кнопка всплывающего окошка-->
-    <!--            <button id="myBtn">Open Modal</button>-->
-    <!--              <div id="myModal" class="modal">-->
-    <!--                <div class="modal-content">-->
-    <!--                  <span class="close">&times;</span>-->
-    <!--                  <p>Some text in the Modal..</p>-->
-    <!--                </div>-->
-    <!--              </div>-->
-              </div>
-            </form>
-          </div>
-      </div>
-
-    </div>`;
+              content = `
+              <div class="card">
+                  <div class="image exmp3">
+                    <img src="${flat.photos}">
+                  </div>
+                  <div class="info"> <ul>
+                    <li class="cost"><b>${flat.price} руб. </b></li>
+                    <li class="type"><b>Метро: ${flat.available_metro_station[0]}</b></li>
+                    <li class="type"><b>Адрес: ${flat.address} </b></li>
+                    <li class="type">${flat.total_information}</li>
+                  </ul>
+                  </div>
+              </div>`;
+              calc.style.display = "block";
               info.style.display = "block";
               search.style.marginLeft = "auto";
               search.style.marginRight = "3rem";
@@ -32713,6 +32710,7 @@ export default {
               search.style.marginTop = "1.5rem";
               marker._icon.classList.remove("huechange");
               counter = 0;
+              calc.style.display = "none";
             }
             info.innerHTML = content;
           })

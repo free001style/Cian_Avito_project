@@ -2,7 +2,7 @@
 
 ### If you wanna run this site:
 
-* git clone this repo
+* clone this repo
 * **run**
 
 ```sh
@@ -25,7 +25,7 @@ npm run dev
 
 ## About project
 
-[Here](https://github.com/free001style/python_project-1/tree/main/parsers) there are two parsers:
+[Here](https://github.com/free001style/Cian_Avito_project/tree/master/parsers) there are two parsers:
 for [Cian](https://www.cian.ru/) and for [Avito](https://www.avito.ru/moskva/nedvizhimost). We parsed such cities as
 Moscow, SPB and Novosibirsk. We used scrapy for parsing and ScraperAPI to bypass the lock. Files cleaner.py prettify our
 json and found coordinates by address(used [mapbox.Geocoder](https://docs.mapbox.com/api/search/geocoding/)).
