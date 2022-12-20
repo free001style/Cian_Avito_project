@@ -36,7 +36,7 @@
                   <label for="Choice3" class="calc_text"> Для IT-специалистов </label>
 
                   <input type="radio" class="radio" id="Choice4"
-                  name="type" value="11.5" v-model="picked" checked>
+                  name="type" value="11.5" v-model="picked">
                   <label for="Choice4" class="calc_text"> Обычная ставка </label><br>
                 </div>
                 <p class="calc_text">Альфа банк:</p>
@@ -47,7 +47,7 @@
 
                   <input type="radio" class="radio" id="Choice2_"
                   name="type" value="10.7" v-model="picked">
-                  <label for="Choice2" class="calc_text"> 'Под залог' </label>
+                  <label for="Choice2" class="calc_text"> Под залог </label>
 
                   <input type="radio" class="radio" id="Choice3_"
                   name="type" value="11.8" v-model="picked">
@@ -76,7 +76,7 @@
                    <label for="Choice5_3" class="calc_text"> Обычная ставка </label>
                 </div>
                 <div>
-                <h3 class="prct">Ставка: {{ picked }}  Ежемесячный платеж: {{ Math.round(((price-first_pay)*(picked/1200)*(1+picked/1200)**(12*years_to_pay))/((1+picked/1200)**(12*years_to_pay)-1)) }} </h3>
+                <h3 class="prct">Ставка: {{ picked }}%  Ежемесячный платеж: {{ Math.round(((price-first_pay)*(picked/1200)*(1+picked/1200)**(12*years_to_pay))/((1+picked/1200)**(12*years_to_pay)-1)) }} </h3>
                 </div>
           <!-- кнопка всплывающего окошка-->
     <!--            <button id="myBtn">Open Modal</button>-->
