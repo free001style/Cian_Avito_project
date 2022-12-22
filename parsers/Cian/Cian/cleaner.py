@@ -1,12 +1,14 @@
 import json
 import re
 from mapbox import Geocoder
+import os
+from dotenv import load_dotenv, find_dotenv
 
-MAPBOX_ACCESS_TOKEN = ''  # вставляй свой
+load_dotenv(find_dotenv())
 
 
 def get_coords(address: str) -> list[float]:
-    geocoder = Geocoder(access_token=MAPBOX_ACCESS_TOKEN)
+    geocoder = Geocoder(access_token=os.getenv('TOKEN'))
     response = geocoder.forward(address)
     try:
         coords = str(response.json()['features'][0]['center'])
